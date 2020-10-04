@@ -40,6 +40,15 @@ Datasets must define an `errorBars` object that contains the error bar property 
         'June': [{plus: 45, minus: -4}, {plus: 25, minus: -2}]
       }, ...
 
+      or for output by data index
+
+      errorBars: {
+        {plus: 15, minus: -34},
+        {plus: 5, minus: -24},
+        {plus: 35, minus: -14},
+        {plus: 45, minus: -4}
+      }, ...
+
       */
 ```
 
@@ -96,7 +105,7 @@ Find more [Samples](https://github.com/datavisyn/chartjs-plugin-error-bars/tree/
          * @default 10
          */
         width: 10 | '10px' | '60%',
-        
+
         /**
          * lineWidth as number, or as string with pixel (px) ending
          */
