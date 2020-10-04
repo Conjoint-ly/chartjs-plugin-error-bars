@@ -1,4 +1,5 @@
 'use strict';
+'use strict';
 
 import Chart from 'chart.js';
 
@@ -49,6 +50,8 @@ const ErrorBarsPlugin = {
           barLabel = b._model.label; // required for hierarchical
         }
         return {
+          index: b._index,
+          datasetIndex: b._datasetIndex,
           label: barLabel,
           value: values[j],
           x: b._model.x,
@@ -188,15 +191,14 @@ const ErrorBarsPlugin = {
 
     // map error bar to barchart bar via label property
     barchartCoords.forEach((dataset, i) => {
-      if (chart.data.dataset[i]._meta != null && chart.data.dataset[i]._meta.length > 0) {
+      if (chart.data.datasets[i]._meta != null && chart.data.datasets[i]._meta.length > 0) {
         var hidden = chart.data.datasets[i]._meta[0].hidden;
         if (hidden) {
           return;
         }
       }
 
-      dataset.forEach((bar) => {
-
+      dataset.forEach((bar, index) => {
 
         let cur = errorBarCoords[i];
         if (!cur) {
@@ -211,6 +213,8 @@ const ErrorBarsPlugin = {
         } else if (!hasLabelProperty && bar.label && bar.label.label && cur.hasOwnProperty(bar.label.label)) {
           // hierarchical scale has its label property nested in b.label object as b.label.label
           errorBarData = cur[bar.label.label];
+        } else {
+          errorBarData = cur[index];
         }
 
         if (!errorBarData) {
