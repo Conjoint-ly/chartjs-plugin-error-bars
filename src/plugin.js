@@ -208,13 +208,13 @@ const ErrorBarsPlugin = {
         let errorBarData = null;
 
         // common scale such as categorical
-        if (hasLabelProperty) {
+        if (Array.isArray(cur)) {
+          errorBarData = cur[index];
+        } else if (hasLabelProperty) {
           errorBarData = cur[bar.label];
         } else if (!hasLabelProperty && bar.label && bar.label.label && cur.hasOwnProperty(bar.label.label)) {
           // hierarchical scale has its label property nested in b.label object as b.label.label
           errorBarData = cur[bar.label.label];
-        } else {
-          errorBarData = cur[index];
         }
 
         if (!errorBarData) {
